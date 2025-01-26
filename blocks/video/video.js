@@ -5,7 +5,7 @@
  */
 
 const prefersReducedMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
+  "(prefers-reduced-motion: reduce)",
 );
 
 function embedYoutube(url, autoplay, background) {
@@ -130,7 +130,7 @@ export default async function decorate(block) {
     if (!autoplay) {
       wrapper.insertAdjacentHTML(
         "beforeend",
-        '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>'
+        '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>',
       );
       wrapper.addEventListener("click", () => {
         wrapper.remove();

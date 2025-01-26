@@ -1,8 +1,8 @@
 .bio-wrapper .bio.block img {
-    width: 200px;
+  width: 200px;
 }
 
 .bio-wrapper .bio.block.highlighted img {
-    border: 2px solid blue;
-    box-sizing: border-box;
+  border: 2px solid blue;
+  box-sizing: border-box;
 }
