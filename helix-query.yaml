@@ -2,7 +2,7 @@ version: 1
 
 indices:
   default: &default
-    target: /query-index.json
+    target: /query-index
     exclude:
       - '**/products/**'
     properties:
