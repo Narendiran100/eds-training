@@ -3,6 +3,8 @@ version: 1
 indices:
   default: &default
     target: /query-index.json
+    exclude:
+      - '**/products/**'
     properties:
       path:
         select: none
