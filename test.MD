@@ -201,3 +201,193 @@ Here's a simplified view of the architecture:
    - Mitigation strategies
    - Compliance requirements
    - Security updates
+
+
+# Tax System Architecture Documentation
+
+[Previous sections remain unchanged until Data Flow section]
+
+## Detailed Data Flow
+
+### 1. Request Processing Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant WP as Web Portal (NGINX/Tomcat)
+    participant AG as API Gateway
+    participant CE as Core Engine
+    participant Cache as Redis Cache
+    participant Queue as Kafka
+    participant DB as Storage Layer
+
+    User->>WP: 1. Submit Request
+    WP->>AG: 2. Forward Request
+    AG->>AG: 3. Authenticate & Validate
+    AG->>Cache: 4. Check Cache
+    Cache-->>AG: 5. Return Cache (if exists)
+    AG->>CE: 6. Route Request
+    CE->>Queue: 7. Publish Event
+    CE->>DB: 8. Store Data
+    DB-->>CE: 9. Confirm Storage
+    CE-->>AG: 10. Return Result
+    AG-->>WP: 11. Format Response
+    WP-->>User: 12. Display Result
+```
+
+### 2. Detailed Flow Explanation
+
+1. **Initial Request Processing**
+
+   - User submits request through web portal
+   - NGINX handles static content delivery
+   - Tomcat processes dynamic requests
+   - Load balancing occurs at web server level
+
+2. **API Gateway Processing**
+
+   - Request authentication and validation
+   - JWT token verification
+   - Rate limit checking
+   - Request transformation if needed
+   - Route determination based on service discovery
+
+3. **Cache Layer Interaction**
+
+   - Check Redis cache for existing data
+   - Cache hit: Return cached response
+   - Cache miss: Proceed to core services
+   - Cache update on new data
+
+4. **Core Service Processing**
+
+   - Business logic application
+   - Data validation rules
+   - Transaction management
+   - Event generation for async operations
+
+5. **Asynchronous Processing**
+
+   - Kafka receives events from core services
+   - Events are published to relevant topics
+   - Consumers process events asynchronously
+   - Ensures system resilience and scalability
+
+6. **Data Storage Operations**
+   - Write operations to appropriate storage
+   - Transaction management
+   - Data replication if needed
+   - Backup procedures
+
+### 3. System Architecture
+
+```mermaid
+graph TB
+    subgraph "User Interface Layer"
+        A[Tax Payer Web Portal]
+        B[Offline Utility]
+        C[GSP Portal]
+    end
+
+    subgraph "API Gateway Layer"
+        D[CA Mobile API Gateway]
+        E[Authentication]
+        F[Rate Limiting]
+        G[Load Balancing]
+    end
+
+    subgraph "Core Services Layer"
+        H[Core API Engine]
+        I[Enterprise Service Bus]
+        J[Kafka Messaging]
+        K[Redis Cache]
+        L[Rules Engine]
+    end
+
+    subgraph "Storage Layer"
+        M[HBase]
+        N[HDFS]
+        O[MySQL]
+        P[Directory Server]
+    end
+
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    D --> F
+    D --> G
+    G --> H
+    H --> I
+    I --> J
+    I --> K
+    I --> L
+    L --> M
+    L --> N
+    L --> O
+    H --> P
+
+    style A fill:#a8d1ff
+    style B fill:#a8d1ff
+    style C fill:#a8d1ff
+    style D fill:#ffb3b3
+    style E fill:#ffb3b3
+    style F fill:#ffb3b3
+    style G fill:#ffb3b3
+    style H fill:#b3ffb3
+    style I fill:#b3ffb3
+    style J fill:#b3ffb3
+    style K fill:#b3ffb3
+    style L fill:#b3ffb3
+    style M fill:#ffd9b3
+    style N fill:#ffd9b3
+    style O fill:#ffd9b3
+    style P fill:#ffd9b3
+```
+
+### 4. Data Processing Patterns
+
+```mermaid
+flowchart TD
+    subgraph "Synchronous Processing"
+        A[Request] --> B[Validation]
+        B --> C[Processing]
+        C --> D[Response]
+    end
+
+    subgraph "Asynchronous Processing"
+        E[Event] --> F[Kafka Topic]
+        F --> G[Consumer 1]
+        F --> H[Consumer 2]
+        G --> I[Processing 1]
+        H --> J[Processing 2]
+    end
+
+    subgraph "Caching Strategy"
+        K[Request] --> L{Cache?}
+        L -->|Yes| M[Return Cached]
+        L -->|No| N[Process & Cache]
+    end
+```
+
+### 5. Error Handling Flow
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Gateway
+    participant Service
+    participant ErrorHandler
+
+    Client->>Gateway: Request
+    Gateway->>Service: Process
+    Service->>ErrorHandler: Error Occurs
+    ErrorHandler->>Service: Handle Error
+    Service->>Gateway: Error Response
+    Gateway->>Client: Formatted Error
+```
+
+[Previous Interview Q&A section remains unchanged]
+
+[Rest of the sections remain unchanged]
+
