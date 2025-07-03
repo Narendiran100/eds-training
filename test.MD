@@ -387,7 +387,204 @@ sequenceDiagram
     Gateway->>Client: Formatted Error
 ```
 
-[Previous Interview Q&A section remains unchanged]
+# Tax System Architecture Documentation
 
-[Rest of the sections remain unchanged]
+[Previous sections remain unchanged]
+
+## System Components Explained
+
+### Web Layer Components
+
+1. **NGINX**
+
+   - Purpose: High-performance web server and reverse proxy
+   - Key Features:
+     - Load balancing across multiple application servers
+     - Efficient static content serving
+     - SSL/TLS termination
+     - Request compression and caching
+     - DDoS protection
+   - Benefits:
+     - Better performance than Apache for static content
+     - Lower memory footprint
+     - Excellent for handling concurrent connections
+     - Built-in load balancing capabilities
+
+2. **Apache Tomcat**
+   - Purpose: Java application server for running Java web applications
+   - Key Features:
+     - Servlet container implementation
+     - JSP processing
+     - WebSocket support
+     - Security realms and roles
+   - Benefits:
+     - Lightweight compared to full J2EE servers
+     - Easy to configure and maintain
+     - Extensive documentation and community support
+     - Good integration with development tools
+
+### Infrastructure Components
+
+1. **Kubernetes**
+
+   - Purpose: Container orchestration platform
+   - Key Features:
+     - Automated container deployment
+     - Service discovery and load balancing
+     - Self-healing capabilities
+     - Horizontal scaling
+     - Storage orchestration
+   - Benefits:
+     - Consistent deployment across environments
+     - Efficient resource utilization
+     - High availability
+     - Easy scaling and management
+     - Rolling updates and rollbacks
+
+2. **Docker**
+   - Purpose: Container platform
+   - Key Features:
+     - Application containerization
+     - Isolated environments
+     - Version control for containers
+     - Resource isolation
+   - Benefits:
+     - Consistent development environments
+     - Fast deployment
+     - Resource efficiency
+     - Easy application packaging
+
+### Caching and Messaging
+
+1. **Redis**
+
+   - Purpose: In-memory data structure store
+   - Key Features:
+     - Key-value storage
+     - Data structures (lists, sets, hashes)
+     - Pub/Sub messaging
+     - Automatic failover
+   - Use Cases:
+     - Session management
+     - Caching
+     - Real-time analytics
+     - Queue management
+   - Benefits:
+     - Ultra-fast performance
+     - Data persistence
+     - Built-in replication
+     - Atomic operations
+
+2. **Apache Kafka**
+   - Purpose: Distributed streaming platform
+   - Key Features:
+     - Publish-subscribe messaging
+     - Stream processing
+     - Event sourcing
+     - Log aggregation
+   - Use Cases:
+     - Real-time data pipelines
+     - Activity tracking
+     - Metrics collection
+     - Log aggregation
+   - Benefits:
+     - High throughput
+     - Fault tolerance
+     - Horizontal scalability
+     - Message persistence
+
+### Storage Solutions
+
+1. **MySQL**
+
+   - Purpose: Relational database management system
+   - Key Features:
+     - ACID compliance
+     - Transactions
+     - Referential integrity
+     - Complex queries
+   - Use Cases:
+     - Transactional data
+     - Structured data storage
+     - Complex relationships
+   - Benefits:
+     - Mature and stable
+     - Strong consistency
+     - Rich ecosystem
+     - Good performance
+
+2. **HBase**
+
+   - Purpose: NoSQL distributed database
+   - Key Features:
+     - Column-family data model
+     - Linear scalability
+     - Automatic sharding
+     - Real-time queries
+   - Use Cases:
+     - Large-scale data storage
+     - Random, real-time read/write access
+     - Storing semi-structured data
+   - Benefits:
+     - Handles massive datasets
+     - Consistent reads/writes
+     - Automatic failover
+     - Integration with Hadoop ecosystem
+
+3. **HDFS (Hadoop Distributed File System)**
+   - Purpose: Distributed file system
+   - Key Features:
+     - Large file storage
+     - Streaming data access
+     - Fault tolerance
+     - Data replication
+   - Use Cases:
+     - Big data storage
+     - Batch processing
+     - Data archival
+   - Benefits:
+     - Highly scalable
+     - Cost-effective storage
+     - Built-in redundancy
+     - Works well with other Hadoop components
+
+### API Management
+
+1. **CA API Gateway**
+   - Purpose: API security and management
+   - Key Features:
+     - Authentication/Authorization
+     - Rate limiting
+     - API versioning
+     - Traffic management
+   - Use Cases:
+     - API security
+     - Service virtualization
+     - Protocol mediation
+   - Benefits:
+     - Centralized security
+     - Policy enforcement
+     - Performance optimization
+     - API lifecycle management
+
+### Monitoring and Logging
+
+1. **ELK Stack (Elasticsearch, Logstash, Kibana)**
+   - Purpose: Log management and analysis
+   - Components:
+     - Elasticsearch: Search and analytics engine
+     - Logstash: Log processing pipeline
+     - Kibana: Visualization platform
+   - Use Cases:
+     - Centralized logging
+     - Application monitoring
+     - Security analytics
+   - Benefits:
+     - Real-time monitoring
+     - Powerful search capabilities
+     - Custom dashboards
+     - Scalable architecture
+
+[Previous sections including Data Flow and Interview Q&A remain unchanged]
+
 
